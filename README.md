@@ -1,2 +1,2 @@
-# marketplace-backend
-Those are the microservices who provide the marketplace app
+# ms-products
+This microservice provide all about products to the application
