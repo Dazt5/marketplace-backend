@@ -1,13 +1,11 @@
-package com.dazt.products.mappers;
+package com.dazt.products.persistence.mappers;
 
 import com.dazt.ms.products.dto.ProductDto;
-import com.dazt.products.entity.Product;
+import com.dazt.products.persistence.entity.Product;
 import java.util.List;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.NullValueMappingStrategy;
 
 /**

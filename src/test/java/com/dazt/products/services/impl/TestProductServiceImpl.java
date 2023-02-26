@@ -1,8 +1,9 @@
 package com.dazt.products.services.impl;
 
-import com.dazt.products.entity.Product;
+import com.dazt.products.domain.services.impl.ProductServiceImpl;
+import com.dazt.products.persistence.entity.Product;
 import com.dazt.products.fixtures.ProductFixtures;
-import com.dazt.products.repositories.ProductRepository;
+import com.dazt.products.persistence.repositories.ProductCrudRepository;
 import java.math.BigInteger;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
@@ -24,7 +25,7 @@ class TestProductServiceImpl {
 
     /** repository .*/
     @Mock
-    private ProductRepository repository;
+    private ProductCrudRepository repository;
     /** instance .*/
     @InjectMocks
     private ProductServiceImpl instance;

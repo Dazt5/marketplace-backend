@@ -1,9 +1,9 @@
-package com.dazt.products.services.impl;
+package com.dazt.products.domain.services.impl;
 
 import com.dazt.ms.products.dto.CategoryDto;
-import com.dazt.products.mappers.CategoryMapper;
-import com.dazt.products.repositories.CategoryRepository;
-import com.dazt.products.services.CategoryService;
+import com.dazt.products.domain.services.CategoryService;
+import com.dazt.products.persistence.mappers.CategoryMapper;
+import com.dazt.products.persistence.repositories.CategoryCrudRepository;
 import java.math.BigInteger;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CategoryServiceImpl implements CategoryService {
 
     /** repository. */
-    private final CategoryRepository repository;
+    private final CategoryCrudRepository repository;
     /** mapper. */
     private final CategoryMapper mapper = Mappers.getMapper(CategoryMapper.class);
 
@@ -42,6 +42,17 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(readOnly = true)
     public CategoryDto getById(final String id) {
         return this.mapper.categoryToDto(this.repository.findById(new BigInteger(id)).orElse(null));
+    }
+
+    /**
+     * {@inheritDoc}
+     * */
+    @Override
+    @Transactional(readOnly = true)
+    public CategoryDto getByCategoryCode(final String categoryCode) {
+        final var category = this.repository.findByCategoryCode(categoryCode)
+            .orElseThrow(() -> new IllegalArgumentException("Categoria no existe"));
+        return this.mapper.categoryToDto(category);
     }
 
     /**

@@ -1,8 +1,9 @@
 package com.dazt.products.services.impl;
 
-import com.dazt.products.entity.Category;
+import com.dazt.products.domain.services.impl.CategoryServiceImpl;
+import com.dazt.products.persistence.entity.Category;
 import com.dazt.products.fixtures.CategoryFixtures;
-import com.dazt.products.repositories.CategoryRepository;
+import com.dazt.products.persistence.repositories.CategoryCrudRepository;
 import java.math.BigInteger;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
@@ -24,7 +25,7 @@ class TestCategoryServiceImpl {
 
     /** repository. */
     @Mock
-    private CategoryRepository repository;
+    private CategoryCrudRepository repository;
     /** instance. */
     @InjectMocks
     private CategoryServiceImpl instance;

@@ -12,12 +12,10 @@
  */
 package com.dazt.products.controllers;
 
-import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.ms.products.dto.ProductDto;
-import com.dazt.products.fixtures.CategoryFixtures;
 import com.dazt.products.fixtures.ProductFixtures;
-import com.dazt.products.services.impl.CategoryServiceImpl;
-import com.dazt.products.services.impl.ProductServiceImpl;
+import com.dazt.products.domain.services.impl.ProductServiceImpl;
+import com.dazt.products.web.controllers.ProductController;
 import java.math.BigInteger;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;

@@ -1,8 +1,8 @@
-package com.dazt.products.controllers;
+package com.dazt.products.web.controllers;
 
-import com.dazt.ms.products.dto.ProductDto;
-import com.dazt.products.entity.Product;
-import com.dazt.products.services.ProductService;
+import com.dazt.ms.products.dto.CategoryDto;
+import com.dazt.products.persistence.entity.Product;
+import com.dazt.products.domain.services.CategoryService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,20 +14,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /**
- * ProductController.
+ * CategoryController.
  *
  * @author David Alvarez.
- * @version 1.0.0, 20-09-2022
+ * @version 1.0.0, 12-11-2022
  */
 @RestController
-@RequestMapping("/v1/products/")
 @RequiredArgsConstructor
-public class ProductController {
+@RequestMapping("/v1/categories/")
+public class CategoryController {
 
     /** service. */
-    private final ProductService service;
+    private final CategoryService service;
 
     /**
      * Obtain a list of products.
@@ -35,42 +34,42 @@ public class ProductController {
      * @return list {@link Product}
      * */
     @GetMapping
-    public List<ProductDto> getAll(){
+    public List<CategoryDto> getAll(){
         return service.getAll();
     }
 
     /**
-     * Obtain a specific product by id.
+     * Obtain a specific category by id.
      *
      * @return list {@link Boolean}
      * */
     @GetMapping("/{id}")
-    public ProductDto getId(@PathVariable String id){
+    public CategoryDto getId(@PathVariable String id){
         return service.getById(id);
     }
 
     /**
-     * Save a product.
+     * Save a category.
      *
      * @return product {@link Product}
      * */
     @PostMapping
-    public ProductDto save(@RequestBody ProductDto product){
+    public CategoryDto save(@RequestBody CategoryDto product){
         return service.save(product);
     }
 
     /**
-     * Update a product.
+     * Update a category.
      *
      * @return product {@link Product}
      * */
     @PutMapping("/{id}")
-    public ProductDto update(@PathVariable final String id, @RequestBody ProductDto product){
+    public CategoryDto update(@PathVariable final String id, @RequestBody CategoryDto product){
         return service.update(id,product);
     }
 
     /**
-     * Delete a product.
+     * Delete a category.
      *
      * @return product {@link Product}
      * */

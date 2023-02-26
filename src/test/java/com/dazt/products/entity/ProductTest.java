@@ -1,10 +1,10 @@
 package com.dazt.products.entity;
 
+import com.dazt.products.persistence.entity.Product;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

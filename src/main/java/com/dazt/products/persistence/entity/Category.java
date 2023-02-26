@@ -1,7 +1,6 @@
-package com.dazt.products.entity;
+package com.dazt.products.persistence.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -17,17 +16,17 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 /**
- * Product.
+ * Category.
  *
  * @author David Alvarez.
- * @version 1.0.0, 20-09-2022
+ * @version 1.0.0, 12-11-2022
  */
-@Entity
+@NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
-@NoArgsConstructor
-public class Product implements Serializable {
+@Entity
+public class Category implements Serializable {
 
     /** serialVersionUID. */
     private static final long serialVersionUID = 6922576685008410979L;
@@ -38,21 +37,17 @@ public class Product implements Serializable {
     @Column(columnDefinition = "BIGINT")
     private BigInteger id;
 
+    /** categoryCode. */
+    @Column(unique = true)
+    private String categoryCode;
+
     /** name. */
-    @Column(length = 50, nullable = false)
+    @Column(length = 100)
     private String name;
 
     /** description. */
-    @Column(length = 200, nullable = false)
+    @Column
     private String description;
-
-    /** stock. */
-    @Column(nullable = false)
-    private Integer stock;
-
-    /** price. */
-    @Column(nullable = false)
-    private BigDecimal price;
 
     /** updateTime. */
     @UpdateTimestamp

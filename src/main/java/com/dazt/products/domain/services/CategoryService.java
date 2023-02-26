@@ -1,7 +1,8 @@
-package com.dazt.products.services;
+package com.dazt.products.domain.services;
 
 import com.dazt.ms.products.dto.CategoryDto;
-import com.dazt.products.entity.Product;
+import com.dazt.products.persistence.entity.Category;
+import com.dazt.products.persistence.entity.Product;
 import java.util.List;
 
 /**
@@ -15,16 +16,23 @@ public interface CategoryService {
     /**
      * Return a list of categories.
      *
-     * @return list {@link Product}
+     * @return list {@link CategoryDto}
      * */
     List<CategoryDto> getAll();
 
     /**
      * Return a category queried by id.
      *
-     * @return product {@link Product}
+     * @return product {@link CategoryDto}
      * */
     CategoryDto getById(final String id);
+
+    /**
+     * Return a category queried by id.
+     *
+     * @return product {@link Category}
+     * */
+    CategoryDto getByCategoryCode(String categoryCode);
 
     /**
      * Save a new category.
