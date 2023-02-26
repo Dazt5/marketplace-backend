@@ -1,7 +1,6 @@
 package com.dazt.products.domain.repository;
 
 import com.dazt.ms.products.dto.ProductDto;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +38,7 @@ public interface ProductRepository {
      *
      * @return list {@link ProductDto}
      * */
-    Optional<ProductDto> getProductById(BigInteger productId);
+    Optional<ProductDto> getProductById(String productId);
 
     /**
      * Save a product in the database
@@ -52,6 +51,6 @@ public interface ProductRepository {
      * Return a Product queried by id.
      *
      * */
-    void delete(BigInteger productId);
+    boolean delete(String productId);
 
 }

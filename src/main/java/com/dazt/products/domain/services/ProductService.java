@@ -24,33 +24,33 @@ public interface ProductService {
      *
      * @return product {@link Product}
      * */
-    ProductDto getById(final String id);
+    ProductDto getById(String id);
 
     /**
      * Return a product queried by category code.
      *
      * @return product {@link Product}
      * */
-    List<ProductDto> getByCategory(final String categoryCode);
+    List<ProductDto> getByCategory(String categoryCode);
 
     /**
      * Save a new product.
      *
      * @return list {@link Product}
      * */
-    ProductDto save(final ProductDto product);
+    ProductDto save(ProductDto product);
 
     /**
      * Update a existing product
      *
      * @return list {@link Product}
      * */
-    ProductDto update(final String id, final ProductDto product);
+    ProductDto update(String id, ProductDto product);
 
     /**
      * Delete a product
      *
      * @return list {@link Boolean}
      * */
-    Boolean delete(final String id);
+    boolean delete(String id);
 }

@@ -3,6 +3,7 @@ package com.dazt.products.persistence.repositories.impl;
 import com.dazt.ms.products.dto.ProductDto;
 import com.dazt.products.domain.repository.ProductRepository;
 import com.dazt.products.persistence.mappers.ProductMapper;
+import com.dazt.products.persistence.repositories.CategoryCrudRepository;
 import com.dazt.products.persistence.repositories.ProductCrudRepository;
 import java.math.BigInteger;
 import java.util.List;
@@ -21,40 +22,67 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class ProductRepositoryImpl implements ProductRepository {
 
-    /** crudRepository. */
-    private final ProductCrudRepository crudRepository;
     /** productMapper. */
     private final ProductMapper productMapper = Mappers.getMapper(ProductMapper.class);
+    /** crudRepository. */
+    private final ProductCrudRepository crudRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ProductDto> getAll() {
         return this.productMapper.toDtoList(this.crudRepository.findAll());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<List<ProductDto>> getByCategory(final int categoryId) {
         return Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<List<ProductDto>> getScarseProducts(final int quantity) {
         return Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Optional<ProductDto> getProductById(final BigInteger productId) {
-        return this.crudRepository.findById(productId).map(productMapper::productToDto);
+    public Optional<ProductDto> getProductById(final String id) {
+        return this.crudRepository.findById(new BigInteger(id)).map(productMapper::productToDto);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ProductDto save(final ProductDto product) {
-        final var productToSave = this.productMapper.productToEntity(product);
-        return this.productMapper.productToDto(this.crudRepository.save(productToSave));
+        return this.productMapper.productToDto(this.crudRepository.save(this.productMapper.productToEntity(product)));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void delete(final BigInteger productId) {
-        this.crudRepository.deleteById(productId);
+    public boolean delete(final String id) {
+        final var productId = new BigInteger(id);
+        final var savedProductOp = this.crudRepository.findById(productId);
+        if (savedProductOp.isEmpty()) {
+            return false;
+        }
+        try {
+            this.crudRepository.delete(savedProductOp.get());
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
     }
 
 }
