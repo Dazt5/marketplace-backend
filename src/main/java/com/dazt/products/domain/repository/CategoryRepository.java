@@ -1,17 +1,18 @@
-package com.dazt.products.domain.services;
+package com.dazt.products.domain.repository;
 
 import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.persistence.entity.Category;
 import com.dazt.products.persistence.entity.Product;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * CategoryRepository.
  *
  * @author David Alvarez.
- * @version 1.0.0, 12-11-2022
+ * @version 1.0.0, 26-02-2023
  */
-public interface CategoryService {
+public interface CategoryRepository {
 
     /**
      * Return a list of categories.
@@ -25,28 +26,21 @@ public interface CategoryService {
      *
      * @return product {@link CategoryDto}
      * */
-    CategoryDto getById(String id);
+    Optional<CategoryDto> getById(String id);
 
     /**
      * Return a category queried by id.
      *
      * @return product {@link Category}
      * */
-    CategoryDto getByCategoryCode(String categoryCode);
+    Optional<CategoryDto> getByCategoryCode(String categoryCode);
 
     /**
-     * Save a new category.
+     * Save a new or update an existing category.
      *
      * @return list {@link Product}
      * */
     CategoryDto save(CategoryDto product);
-
-    /**
-     * Update an existing category
-     *
-     * @return list {@link Product}
-     * */
-    CategoryDto update(String id, CategoryDto product);
 
     /**
      * Delete a category

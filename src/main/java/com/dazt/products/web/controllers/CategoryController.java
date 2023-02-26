@@ -45,7 +45,7 @@ public class CategoryController {
      * */
     @GetMapping("/{id}")
     public CategoryDto getId(@PathVariable String id){
-        return service.getById(id);
+        return this.service.getById(id);
     }
 
     /**

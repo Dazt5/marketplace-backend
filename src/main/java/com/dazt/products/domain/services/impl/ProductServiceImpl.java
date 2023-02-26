@@ -47,15 +47,13 @@ public class ProductServiceImpl implements ProductService {
      * */
     @Transactional(readOnly = true)
     public List<ProductDto> getByCategory(final String categoryCode){
-
         return null;
     }
 
     @Override
     public ProductDto save(final ProductDto product) {
        final var productEntity = this.productMapper.productToEntity(product);
-       final var category =
-           this.categoryService.getByCategoryCode(product.getCategory().getCategoryCode());
+       final var category = this.categoryService.getByCategoryCode(product.getCategory().getCategoryCode());
         productEntity.setCategory(this.categoryMapper.categoryToEntity(category));
         return this.productMapper.productToDto(this.repository.save(productEntity));
     }

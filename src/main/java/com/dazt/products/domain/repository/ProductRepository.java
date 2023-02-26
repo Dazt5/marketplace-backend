@@ -1,6 +1,5 @@
 package com.dazt.products.domain.repository;
 
-import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.ms.products.dto.ProductDto;
 import java.math.BigInteger;
 import java.util.List;

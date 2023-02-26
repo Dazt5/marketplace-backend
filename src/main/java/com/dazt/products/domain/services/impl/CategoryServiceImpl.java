@@ -1,11 +1,12 @@
 package com.dazt.products.domain.services.impl;
 
 import com.dazt.ms.products.dto.CategoryDto;
+import com.dazt.products.domain.repository.CategoryRepository;
 import com.dazt.products.domain.services.CategoryService;
 import com.dazt.products.persistence.mappers.CategoryMapper;
-import com.dazt.products.persistence.repositories.CategoryCrudRepository;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
@@ -22,26 +23,26 @@ import org.springframework.transaction.annotation.Transactional;
 public class CategoryServiceImpl implements CategoryService {
 
     /** repository. */
-    private final CategoryCrudRepository repository;
-    /** mapper. */
-    private final CategoryMapper mapper = Mappers.getMapper(CategoryMapper.class);
+    private final CategoryRepository repository;
 
     /**
      * {@inheritDoc}
      * */
     @Override
-    @Transactional(readOnly = true)
     public List<CategoryDto> getAll() {
-        return this.mapper.toDtoList(this.repository.findAll());
+        return this.repository.getAll();
     }
 
     /**
      * {@inheritDoc}
      * */
     @Override
-    @Transactional(readOnly = true)
     public CategoryDto getById(final String id) {
-        return this.mapper.categoryToDto(this.repository.findById(new BigInteger(id)).orElse(null));
+        final var categoryOp = this.repository.getById(id);
+        if (categoryOp.isEmpty()){
+            throw new IllegalArgumentException("Category Doesn't exists");
+        }
+        return categoryOp.get();
     }
 
     /**
@@ -50,49 +51,44 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(readOnly = true)
     public CategoryDto getByCategoryCode(final String categoryCode) {
-        final var category = this.repository.findByCategoryCode(categoryCode)
-            .orElseThrow(() -> new IllegalArgumentException("Categoria no existe"));
-        return this.mapper.categoryToDto(category);
+        final var categoryOp =  this.repository.getByCategoryCode(categoryCode);
+        if (categoryOp.isEmpty()){
+            throw new IllegalArgumentException("Category Doesn't exists");
+        }
+        return categoryOp.get();
     }
 
     /**
      * {@inheritDoc}
      * */
     @Override
-    @Transactional
     public CategoryDto save(final CategoryDto categoryDto) {
-        final var categoryEntity = this.mapper.categoryToEntity(categoryDto);
-        return this.mapper.categoryToDto(this.repository.save(categoryEntity));
+        final var categoryAlreadyExist = this.repository.getByCategoryCode(categoryDto.getCategoryCode())
+            .isPresent();
+        if (categoryAlreadyExist){
+            throw new IllegalArgumentException("Category already exist with the code " + categoryDto.getCategoryCode());
+        }
+        return this.repository.save(categoryDto);
     }
 
     /**
      * {@inheritDoc}
      * */
     @Override
-    @Transactional
     public CategoryDto update(final String id, final CategoryDto categoryDto) {
-        final var categoryEntity= this.repository.findById(new BigInteger(id)).orElse(null);
-        if (null == categoryEntity){
-            throw new IllegalArgumentException("Category doesn't exists.");
-        }
-        categoryEntity.setName(categoryEntity.getName());
-        categoryEntity.setDescription(categoryDto.getDescription());
-        categoryEntity.setCategoryCode(categoryDto.getCategoryCode());
-        return this.save(this.mapper.categoryToDto(categoryEntity));
+        final var savedCategoryOp = this.getById(id);
+        savedCategoryOp.setCategoryCode(categoryDto.getCategoryCode());
+        savedCategoryOp.setName(categoryDto.getName());
+        savedCategoryOp.setDescription(categoryDto.getDescription());
+        return this.repository.save(savedCategoryOp);
     }
 
     /**
      * {@inheritDoc}
      * */
     @Override
-    @Transactional
     public Boolean delete(final String id) {
-        final var category = this.repository.findById(new BigInteger(id)).orElse(null);
-        if (null == category){
-            return false;
-        }
-        this.repository.delete(category);
-        return true;
+        return this.repository.delete(id);
     }
 
 }
