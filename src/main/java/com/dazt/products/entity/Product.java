@@ -56,13 +56,13 @@ public class Product implements Serializable {
 
     /** updateTime. */
     @UpdateTimestamp
-    @Column(nullable = false, name = "update_time")
+    @Column(nullable = false, name = "update_time", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
     /** createTime. */
     @CreationTimestamp
-    @Column(nullable = false, name = "create_time", updatable = false)
+    @Column(nullable = false, name = "create_time", columnDefinition = "TIMESTAMP WITH TIME ZONE", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
