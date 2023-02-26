@@ -2,6 +2,7 @@ package com.dazt.products.fixtures;
 
 import com.dazt.ms.products.dto.ProductDto;
 import com.dazt.products.entity.Product;
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class ProductFixtures {
     }
 
     public static ProductDto getSingleProductDto(){
-        return new ProductDto();
+        return ProductDto.builder().id(BigInteger.ONE).build();
     }
 
     public static List<Product> getProductList(){
