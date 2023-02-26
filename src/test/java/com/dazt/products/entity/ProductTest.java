@@ -34,6 +34,12 @@ class ProductTest {
     }
 
     @Test
+    void testConstructors(){
+        final var product = new Product();
+        Assertions.assertNotNull(product);
+    }
+
+    @Test
     void testBuilder(){
         final var product = Product.builder()
             .id(BigInteger.ONE)
