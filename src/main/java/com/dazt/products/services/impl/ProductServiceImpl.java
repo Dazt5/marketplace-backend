@@ -51,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Boolean delete(final String id) {
         final var product =  this.getById(id);
-        if (null != this.getById((id))){
+        if (null != product){
             repository.delete(product);
             return true;
         }
