@@ -2,6 +2,8 @@ package com.dazt.products.entity;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,8 +24,8 @@ class ProductTest {
         product.setDescription("productDescription");
         product.setStock(1);
         product.setPrice(BigDecimal.ONE);
-        product.setCreateTime(new Date());
-        product.setUpdateTime(new Date());
+        product.setCreateTime(LocalDateTime.now(ZoneId.systemDefault()));
+        product.setUpdateTime(LocalDateTime.now(ZoneId.systemDefault()));
         Assertions.assertNotNull(product.getId());
         Assertions.assertNotNull(product.getName());
         Assertions.assertNotNull(product.getDescription());
@@ -47,8 +49,8 @@ class ProductTest {
             .description("productDescription")
             .stock(1)
             .price(BigDecimal.ONE)
-            .createTime(new Date())
-            .updateTime(new Date())
+            .createTime(LocalDateTime.now(ZoneId.systemDefault()))
+            .updateTime(LocalDateTime.now(ZoneId.systemDefault()))
             .build();
         Assertions.assertNotNull(product.getId());
         Assertions.assertNotNull(product.getName());

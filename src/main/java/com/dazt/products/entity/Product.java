@@ -3,6 +3,7 @@ package com.dazt.products.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -24,7 +27,8 @@ import org.hibernate.annotations.UpdateTimestamp;
  * @version 1.0.0, 20-09-2022
  */
 @Entity
-@Data
+@Getter
+@Setter
 @SuperBuilder
 @NoArgsConstructor
 public class Product implements Serializable {
@@ -57,13 +61,11 @@ public class Product implements Serializable {
     /** updateTime. */
     @UpdateTimestamp
     @Column(nullable = false, name = "update_time", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     /** createTime. */
     @CreationTimestamp
     @Column(nullable = false, name = "create_time", columnDefinition = "TIMESTAMP WITH TIME ZONE", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createTime;
+    private LocalDateTime createTime;
 
 }
