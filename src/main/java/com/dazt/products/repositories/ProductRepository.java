@@ -1,6 +1,6 @@
 package com.dazt.products.repositories;
 
-import com.dazt.ms.products.entity.Product;
+import com.dazt.products.entity.Product;
 import java.math.BigInteger;
 import org.springframework.data.jpa.repository.JpaRepository;
 

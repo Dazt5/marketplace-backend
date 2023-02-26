@@ -12,7 +12,7 @@
  */
 package com.dazt.products.services;
 
-import com.dazt.ms.products.entity.Product;
+import com.dazt.products.entity.Product;
 import java.util.List;
 
 /**

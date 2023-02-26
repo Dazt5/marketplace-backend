@@ -12,7 +12,7 @@
  */
 package com.dazt.products.services.impl;
 
-import com.dazt.ms.products.entity.Product;
+import com.dazt.products.entity.Product;
 import com.dazt.products.repositories.ProductRepository;
 import com.dazt.products.services.ProductService;
 import java.math.BigInteger;

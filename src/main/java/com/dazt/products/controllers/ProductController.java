@@ -1,6 +1,6 @@
 package com.dazt.products.controllers;
 
-import com.dazt.ms.products.entity.Product;
+import com.dazt.products.entity.Product;
 import com.dazt.products.services.ProductService;
 import java.util.List;
 import lombok.AllArgsConstructor;
