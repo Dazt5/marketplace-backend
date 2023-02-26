@@ -1,9 +1,10 @@
 package com.dazt.products.controllers;
 
+import com.dazt.ms.products.dto.ProductDto;
 import com.dazt.products.entity.Product;
 import com.dazt.products.services.ProductService;
 import java.util.List;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/v1/products/")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductController {
 
+    /** service. */
     private final ProductService service;
 
     /**
@@ -33,7 +35,7 @@ public class ProductController {
      * @return list {@link Product}
      * */
     @GetMapping
-    public List<Product> getAll(){
+    public List<ProductDto> getAll(){
         return service.getAll();
     }
 
@@ -43,7 +45,7 @@ public class ProductController {
      * @return list {@link Boolean}
      * */
     @GetMapping("/{id}")
-    public Product getId(@PathVariable String id){
+    public ProductDto getId(@PathVariable String id){
         return service.getById(id);
     }
 
@@ -53,7 +55,7 @@ public class ProductController {
      * @return product {@link Product}
      * */
     @PostMapping
-    public Product save(@RequestBody Product product){
+    public ProductDto save(@RequestBody ProductDto product){
         return service.save(product);
     }
 
@@ -63,7 +65,7 @@ public class ProductController {
      * @return product {@link Product}
      * */
     @PutMapping("/{id}")
-    public Product update(@PathVariable final String id, @RequestBody Product product){
+    public ProductDto update(@PathVariable final String id, @RequestBody ProductDto product){
         return service.update(id,product);
     }
 

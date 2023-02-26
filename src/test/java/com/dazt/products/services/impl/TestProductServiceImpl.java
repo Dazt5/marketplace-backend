@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.util.Assert;
 
 /**
  * TestProductServiceImpl.
@@ -23,11 +22,12 @@ import org.springframework.util.Assert;
  */
 class TestProductServiceImpl {
 
+    /** repository .*/
     @Mock
-    ProductRepository repository;
-
+    private ProductRepository repository;
+    /** instance .*/
     @InjectMocks
-    ProductServiceImpl instance;
+    private ProductServiceImpl instance;
 
     @BeforeEach
     void setup(){
@@ -36,79 +36,79 @@ class TestProductServiceImpl {
 
     @Test
     void test_get_all_OK(){
-        Mockito.when(repository.findAll()).thenReturn(ProductFixtures.getProductList());
-        Assertions.assertNotNull(instance.getAll());
-        Mockito.verify(repository).findAll();
-        Mockito.verifyNoMoreInteractions(repository);
+        Mockito.when(this.repository.findAll()).thenReturn(ProductFixtures.getProductList());
+        Assertions.assertNotNull(this.instance.getAll());
+        Mockito.verify(this.repository).findAll();
+        Mockito.verifyNoMoreInteractions(this.repository);
     }
 
     @Test
     void test_get_by_id_OK(){
-        Mockito.when(repository.findById(ArgumentMatchers.any(BigInteger.class)))
+        Mockito.when(this.repository.findById(ArgumentMatchers.any(BigInteger.class)))
             .thenReturn(Optional.of(ProductFixtures.getSingleProduct()));
-        Assertions.assertNotNull(instance.getById("1"));
-        Mockito.verify(repository).findById(ArgumentMatchers.any(BigInteger.class));
-        Mockito.verifyNoMoreInteractions(repository);
+        Assertions.assertNotNull(this.instance.getById("1"));
+        Mockito.verify(this.repository).findById(ArgumentMatchers.any(BigInteger.class));
+        Mockito.verifyNoMoreInteractions(this.repository);
     }
 
     @Test
     void test_get_by_id_NOK_product_doesnt_exist(){
-        Mockito.when(repository.findById(ArgumentMatchers.any(BigInteger.class))).thenReturn(Optional.empty());
-        Assertions.assertNull(instance.getById("1"));
-        Mockito.verify(repository).findById(ArgumentMatchers.any(BigInteger.class));
-        Mockito.verifyNoMoreInteractions(repository);
+        Mockito.when(this.repository.findById(ArgumentMatchers.any(BigInteger.class))).thenReturn(Optional.empty());
+        Assertions.assertNull(this.instance.getById("1"));
+        Mockito.verify(this.repository).findById(ArgumentMatchers.any(BigInteger.class));
+        Mockito.verifyNoMoreInteractions(this.repository);
     }
 
     @Test
     void test_save(){
-        Mockito.when(repository.save(ArgumentMatchers.any(Product.class))).thenReturn(ProductFixtures.getSingleProduct());
-        Assertions.assertNotNull(instance.save(ProductFixtures.getSingleProduct()));
-        Mockito.verify(repository).save(ArgumentMatchers.any(Product.class));
-        Mockito.verifyNoMoreInteractions(repository);
+        Mockito.when(this.repository.save(ArgumentMatchers.any(Product.class))).thenReturn(ProductFixtures.getSingleProduct());
+        Assertions.assertNotNull(this.instance.save(ProductFixtures.getSingleProductDto()));
+        Mockito.verify(this.repository).save(ArgumentMatchers.any(Product.class));
+        Mockito.verifyNoMoreInteractions(this.repository);
     }
 
     @Test
     void test_update(){
-        Mockito.when(repository.findById(ArgumentMatchers.any(BigInteger.class)))
+        Mockito.when(this.repository.findById(ArgumentMatchers.any(BigInteger.class)))
             .thenReturn(Optional.of(ProductFixtures.getSingleProduct()));
-        Mockito.when(repository.save(ArgumentMatchers.any(Product.class)))
+        Mockito.when(this.repository.save(ArgumentMatchers.any(Product.class)))
             .thenReturn((ProductFixtures.getSingleProduct()));
-        Assertions.assertNotNull(instance.update("1",ProductFixtures.getSingleProduct()));
-        Mockito.verify(repository).findById(ArgumentMatchers.any(BigInteger.class));
-        Mockito.verify(repository).save(ArgumentMatchers.any(Product.class));
-        Mockito.verifyNoMoreInteractions(repository);
+        Assertions.assertNotNull(this.instance.update("1",ProductFixtures.getSingleProductDto()));
+        Mockito.verify(this.repository).findById(ArgumentMatchers.any(BigInteger.class));
+        Mockito.verify(this.repository).save(ArgumentMatchers.any(Product.class));
+        Mockito.verifyNoMoreInteractions(this.repository);
     }
 
     @Test
     void test_update_NOK_product_doesnt_exist(){
-        final var rq = ProductFixtures.getSingleProduct();
-        Mockito.when(repository.findById(ArgumentMatchers.any(BigInteger.class)))
+        final var rq = ProductFixtures.getSingleProductDto();
+        Mockito.when(this.repository.findById(ArgumentMatchers.any(BigInteger.class)))
             .thenReturn(Optional.empty());
         Assertions.assertThrows(IllegalArgumentException.class,
-            () -> instance.update("1",rq));
-        Mockito.verify(repository).findById(ArgumentMatchers.any(BigInteger.class));
-        Mockito.verifyNoMoreInteractions(repository);
+            () -> this.instance.update("1",rq));
+        Mockito.verify(this.repository).findById(ArgumentMatchers.any(BigInteger.class));
+        Mockito.verifyNoMoreInteractions(this.repository);
     }
 
     @Test
     void test_delete_OK(){
-        Mockito.when(repository.findById(ArgumentMatchers.any(BigInteger.class)))
+        Mockito.when(this.repository.findById(ArgumentMatchers.any(BigInteger.class)))
             .thenReturn(Optional.of(ProductFixtures.getSingleProduct()));
-        Mockito.doNothing().when(repository).delete(ArgumentMatchers.any(Product.class));
-        Assertions.assertTrue(instance.delete("1"));
-        Mockito.verify(repository).findById(ArgumentMatchers.any(BigInteger.class));
-        Mockito.verify(repository).delete(ArgumentMatchers.any(Product.class));
-        Mockito.verifyNoMoreInteractions(repository);
+        Mockito.doNothing().when(this.repository).delete(ArgumentMatchers.any(Product.class));
+        Assertions.assertTrue(this.instance.delete("1"));
+        Mockito.verify(this.repository).findById(ArgumentMatchers.any(BigInteger.class));
+        Mockito.verify(this.repository).delete(ArgumentMatchers.any(Product.class));
+        Mockito.verifyNoMoreInteractions(this.repository);
     }
 
     @Test
     void test_delete_NOK(){
-        Mockito.when(repository.findById(ArgumentMatchers.any(BigInteger.class)))
+        Mockito.when(this.repository.findById(ArgumentMatchers.any(BigInteger.class)))
             .thenReturn(Optional.empty());
-        Mockito.doNothing().when(repository).delete(ArgumentMatchers.any(Product.class));
-        Assertions.assertFalse(instance.delete("1"));
-        Mockito.verify(repository).findById(ArgumentMatchers.any(BigInteger.class));
-        Mockito.verifyNoMoreInteractions(repository);
+        Mockito.doNothing().when(this.repository).delete(ArgumentMatchers.any(Product.class));
+        Assertions.assertFalse(this.instance.delete("1"));
+        Mockito.verify(this.repository).findById(ArgumentMatchers.any(BigInteger.class));
+        Mockito.verifyNoMoreInteractions(this.repository);
     }
 
 }

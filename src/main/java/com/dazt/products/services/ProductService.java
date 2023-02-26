@@ -1,5 +1,6 @@
 package com.dazt.products.services;
 
+import com.dazt.ms.products.dto.ProductDto;
 import com.dazt.products.entity.Product;
 import java.util.List;
 
@@ -16,28 +17,28 @@ public interface ProductService {
      *
      * @return list {@link Product}
      * */
-    List<Product> getAll();
+    List<ProductDto> getAll();
 
     /**
      * Return a product queried by id.
      *
      * @return product {@link Product}
      * */
-    Product getById(final String id);
+    ProductDto getById(final String id);
 
     /**
      * Save a new product.
      *
      * @return list {@link Product}
      * */
-    Product save(final Product product);
+    ProductDto save(final ProductDto product);
 
     /**
      * Update a existing product
      *
      * @return list {@link Product}
      * */
-    Product update(final String id, final Product product);
+    ProductDto update(final String id, final ProductDto product);
 
     /**
      * Delete a product
