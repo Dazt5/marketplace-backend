@@ -1,7 +1,5 @@
 package com.dazt.products.persistence.entity;
 
-import com.dazt.products.persistence.entity.Product;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;

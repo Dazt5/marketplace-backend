@@ -1,6 +1,5 @@
 package com.dazt.products.persistence.entity;
 
-import com.dazt.products.persistence.entity.Category;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
