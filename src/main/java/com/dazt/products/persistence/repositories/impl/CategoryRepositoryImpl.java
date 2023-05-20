@@ -3,7 +3,7 @@ package com.dazt.products.persistence.repositories.impl;
 import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.domain.repository.CategoryRepository;
 import com.dazt.products.persistence.mappers.CategoryMapper;
-import com.dazt.products.persistence.repositories.CategoryCrudRepository;
+import com.dazt.products.persistence.crud.CategoryCrudRepository;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;

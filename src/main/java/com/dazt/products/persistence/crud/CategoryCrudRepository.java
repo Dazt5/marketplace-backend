@@ -1,4 +1,4 @@
-package com.dazt.products.persistence.repositories;
+package com.dazt.products.persistence.crud;
 
 import com.dazt.products.persistence.entity.Category;
 import java.math.BigInteger;
