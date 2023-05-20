@@ -1,11 +1,15 @@
 package com.dazt.products.services.impl;
 
+import com.dazt.ms.products.dto.CategoryDto;
+import com.dazt.products.domain.repository.CategoryRepository;
 import com.dazt.products.domain.services.impl.CategoryServiceImpl;
 import com.dazt.products.persistence.entity.Category;
 import com.dazt.products.fixtures.CategoryFixtures;
 import com.dazt.products.persistence.repositories.CategoryCrudRepository;
+
 import java.math.BigInteger;
 import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,73 +27,70 @@ import org.mockito.MockitoAnnotations;
  */
 class TestCategoryServiceImpl {
 
-    /** repository. */
+    /**
+     * repository.
+     */
     @Mock
-    private CategoryCrudRepository repository;
-    /** instance. */
+    private CategoryRepository repository;
+    /**
+     * instance.
+     */
     @InjectMocks
     private CategoryServiceImpl instance;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void testGetAll(){
-        Mockito.when(this.repository.findAll())
-            .thenReturn(CategoryFixtures.getListCategory());
+    void testGetAll() {
+        Mockito.when(this.repository.getAll())
+                .thenReturn(CategoryFixtures.getListCategoryDto());
         Assertions.assertNotNull(this.instance.getAll());
     }
 
     @Test
-    void testGetById(){
-        Mockito.when(this.repository.findById(ArgumentMatchers.any(BigInteger.class)))
-            .thenReturn(Optional.of(CategoryFixtures.getCategory()));
+    void testGetById() {
+        Mockito.when(this.repository.getById(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.of(CategoryFixtures.getCategoryDto()));
         Assertions.assertNotNull(this.instance.getById("1"));
     }
 
     @Test
-    void testSave(){
-        Mockito.when(this.repository.save(ArgumentMatchers.any(Category.class)))
-            .thenReturn(CategoryFixtures.getCategory());
+    void testSave() {
+        Mockito.when(this.repository.save(ArgumentMatchers.any(CategoryDto.class)))
+                .thenReturn(CategoryFixtures.getCategoryDto());
         Assertions.assertNotNull(this.instance.save(CategoryFixtures.getCategoryDto()));
     }
 
     @Test
-    void testUpdate(){
-        Mockito.when(this.repository.findById(ArgumentMatchers.any(BigInteger.class)))
-            .thenReturn(Optional.of(CategoryFixtures.getCategory()));
-        Mockito.when(this.repository.save(ArgumentMatchers.any(Category.class)))
-            .thenReturn(CategoryFixtures.getCategory());
+    void testUpdate() {
+        Mockito.when(this.repository.getById(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.of(CategoryFixtures.getCategoryDto()));
+        Mockito.when(this.repository.save(ArgumentMatchers.any(CategoryDto.class)))
+                .thenReturn(CategoryFixtures.getCategoryDto());
         Assertions.assertNotNull(this.instance.update("1", CategoryFixtures.getCategoryDto()));
     }
 
     @Test
-    void testUpdateCategoryDoesntExists(){
+    void testUpdateCategoryDoesntExists() {
         final var rq = CategoryFixtures.getCategoryDto();
-        Mockito.when(this.repository.findById(ArgumentMatchers.any(BigInteger.class)))
-            .thenReturn(Optional.empty());
-        Mockito.when(this.repository.save(ArgumentMatchers.any(Category.class)))
-            .thenReturn(CategoryFixtures.getCategory());
+        Mockito.when(this.repository.getById(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.empty());
+        Mockito.when(this.repository.save(ArgumentMatchers.any(CategoryDto.class)))
+                .thenReturn(CategoryFixtures.getCategoryDto());
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-            this.instance.update("1", rq));
+                this.instance.update("1", rq));
     }
 
     @Test
-    void testDelete(){
-        Mockito.when(this.repository.findById(ArgumentMatchers.any(BigInteger.class)))
-            .thenReturn(Optional.of(CategoryFixtures.getCategory()));
-        Mockito.doNothing().when(this.repository).delete(ArgumentMatchers.any(Category.class));
+    void testDelete() {
+        Mockito.when(this.repository.getById(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.of(CategoryFixtures.getCategoryDto()));
+        Mockito.when(this.repository.delete(ArgumentMatchers.anyString()))
+                .thenReturn(true);
         Assertions.assertTrue(this.instance.delete("1"));
-    }
-
-    @Test
-    void testDeleteCategoryDoesntExist(){
-        Mockito.when(this.repository.findById(ArgumentMatchers.any(BigInteger.class)))
-            .thenReturn(Optional.empty());
-        Mockito.doNothing().when(this.repository).delete(ArgumentMatchers.any(Category.class));
-        Assertions.assertFalse(this.instance.delete("1"));
     }
 
 }
