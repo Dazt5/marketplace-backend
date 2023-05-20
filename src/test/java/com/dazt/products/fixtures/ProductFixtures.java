@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class ProductFixtures {
 
-
     public static Product getSingleProduct(){
         return Product.builder()
                 .id(BigInteger.ONE)
@@ -31,11 +30,16 @@ public class ProductFixtures {
                 .name("product")
                 .description("a random description")
                 .price(BigDecimal.ONE)
+                .category(CategoryFixtures.getCategoryDto())
                 .build();
     }
 
     public static List<Product> getProductList(){
         return List.of(getSingleProduct());
+    }
+
+    public static List<ProductDto> getProductDtoList(){
+        return List.of(getSingleProductDto());
     }
 
 }
