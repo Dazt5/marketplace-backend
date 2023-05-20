@@ -2,6 +2,8 @@ package com.dazt.products.fixtures;
 
 import com.dazt.ms.products.dto.ProductDto;
 import com.dazt.products.persistence.entity.Product;
+
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -15,11 +17,21 @@ public class ProductFixtures {
 
 
     public static Product getSingleProduct(){
-        return new Product();
+        return Product.builder()
+                .id(BigInteger.ONE)
+                .name("product")
+                .description("a random description")
+                .price(BigDecimal.ONE)
+                .build();
     }
 
     public static ProductDto getSingleProductDto(){
-        return ProductDto.builder().id(BigInteger.ONE).build();
+        return ProductDto.builder()
+                .id(BigInteger.ONE)
+                .name("product")
+                .description("a random description")
+                .price(BigDecimal.ONE)
+                .build();
     }
 
     public static List<Product> getProductList(){
