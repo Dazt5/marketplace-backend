@@ -1,13 +1,9 @@
-package com.dazt.products.services.impl;
+package com.dazt.products.domain.services.impl;
 
 import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.domain.repository.CategoryRepository;
-import com.dazt.products.domain.services.impl.CategoryServiceImpl;
-import com.dazt.products.persistence.entity.Category;
 import com.dazt.products.fixtures.CategoryFixtures;
-import com.dazt.products.persistence.repositories.CategoryCrudRepository;
 
-import java.math.BigInteger;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -18,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.verification.VerificationMode;
 
 /**
  * TestCategoryServiceImpl.
@@ -44,28 +41,58 @@ class TestCategoryServiceImpl {
     }
 
     @Test
-    void testGetAll() {
+    void test_get_all() {
         Mockito.when(this.repository.getAll())
                 .thenReturn(CategoryFixtures.getListCategoryDto());
         Assertions.assertNotNull(this.instance.getAll());
     }
 
     @Test
-    void testGetById() {
+    void test_get_by_id() {
         Mockito.when(this.repository.getById(ArgumentMatchers.anyString()))
                 .thenReturn(Optional.of(CategoryFixtures.getCategoryDto()));
         Assertions.assertNotNull(this.instance.getById("1"));
     }
 
     @Test
-    void testSave() {
+    void test_get_by_category_code() {
+        Mockito.when(this.repository.getByCategoryCode(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.of(CategoryFixtures.getCategoryDto()));
+        Assertions.assertNotNull(this.instance.getByCategoryCode("categoryCode"));
+        Mockito.verify(this.repository).getByCategoryCode(ArgumentMatchers.anyString());
+    }
+
+    @Test
+    void test_get_by_category_code_NOK_category_code_doesnt_exists() {
+        Mockito.when(this.repository.getByCategoryCode(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.empty());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> this.instance.getByCategoryCode("categoryCode"));
+        Mockito.verify(this.repository).getByCategoryCode(ArgumentMatchers.anyString());
+    }
+
+    @Test
+    void test_save() {
+        Mockito.when(this.repository.getByCategoryCode(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.empty());
         Mockito.when(this.repository.save(ArgumentMatchers.any(CategoryDto.class)))
                 .thenReturn(CategoryFixtures.getCategoryDto());
         Assertions.assertNotNull(this.instance.save(CategoryFixtures.getCategoryDto()));
     }
 
     @Test
-    void testUpdate() {
+    void test_save_category_already_exists() {
+        Mockito.when(this.repository.getByCategoryCode(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.of(CategoryFixtures.getCategoryDto()));
+        Mockito.when(this.repository.save(ArgumentMatchers.any(CategoryDto.class)))
+                .thenReturn(CategoryFixtures.getCategoryDto());
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> this.instance.save(CategoryFixtures.getCategoryDto()));
+        Mockito.verify(this.repository).getByCategoryCode(ArgumentMatchers.anyString());
+        Mockito.verify(this.repository, Mockito.never()).save(ArgumentMatchers.any(CategoryDto.class));
+    }
+
+    @Test
+    void test_update() {
         Mockito.when(this.repository.getById(ArgumentMatchers.anyString()))
                 .thenReturn(Optional.of(CategoryFixtures.getCategoryDto()));
         Mockito.when(this.repository.save(ArgumentMatchers.any(CategoryDto.class)))
@@ -74,7 +101,7 @@ class TestCategoryServiceImpl {
     }
 
     @Test
-    void testUpdateCategoryDoesntExists() {
+    void test_update_category_doesnt_exists() {
         final var rq = CategoryFixtures.getCategoryDto();
         Mockito.when(this.repository.getById(ArgumentMatchers.anyString()))
                 .thenReturn(Optional.empty());
@@ -85,7 +112,7 @@ class TestCategoryServiceImpl {
     }
 
     @Test
-    void testDelete() {
+    void test_delete() {
         Mockito.when(this.repository.getById(ArgumentMatchers.anyString()))
                 .thenReturn(Optional.of(CategoryFixtures.getCategoryDto()));
         Mockito.when(this.repository.delete(ArgumentMatchers.anyString()))
