@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
  * @author David Alvarez.
  * @version 1.0.0, 20-09-2022
  */
-class ProductTest {
+class TestProduct {
 
     @Test
     void testGetters(){
