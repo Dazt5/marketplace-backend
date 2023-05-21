@@ -12,9 +12,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @NoArgsConstructor
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.dazt"})
+@ComponentScan(basePackages = {"com.dazt.products"})
 @EntityScan(basePackages = {"com.dazt.products.persistence.entity"})
-@EnableJpaRepositories(basePackages = {"com.dazt.products.persistence.repositories"})
+@EnableJpaRepositories(basePackages = {"com.dazt.products.persistence.crud"})
 public class MsProductsApplication {
 
 	/** timezoneDefault. */
