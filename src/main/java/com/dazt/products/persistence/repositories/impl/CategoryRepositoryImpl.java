@@ -4,11 +4,15 @@ import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.domain.repository.CategoryRepository;
 import com.dazt.products.persistence.mappers.CategoryMapper;
 import com.dazt.products.persistence.crud.CategoryCrudRepository;
+
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,14 +26,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CategoryRepositoryImpl implements CategoryRepository {
 
-    /** repository. */
+    private static final Logger LOG = LoggerFactory.getLogger(CategoryRepositoryImpl.class);
     private final CategoryCrudRepository repository;
-    /** mapper. */
     private final CategoryMapper mapper = Mappers.getMapper(CategoryMapper.class);
 
     /**
      * {@inheritDoc}
-     * */
+     */
     @Override
     @Transactional(readOnly = true)
     public List<CategoryDto> getAll() {
@@ -38,27 +41,27 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     /**
      * {@inheritDoc}
-     * */
+     */
     @Override
     @Transactional(readOnly = true)
     public Optional<CategoryDto> getById(final String id) {
         return this.repository.findById(new BigInteger(id))
-            .map(this.mapper::categoryToDto);
+                .map(this.mapper::categoryToDto);
     }
 
     /**
      * {@inheritDoc}
-     * */
+     */
     @Override
     @Transactional(readOnly = true)
     public Optional<CategoryDto> getByCategoryCode(final String categoryCode) {
         return this.repository.findByCategoryCode(categoryCode)
-            .map(this.mapper::categoryToDto);
+                .map(this.mapper::categoryToDto);
     }
 
     /**
      * {@inheritDoc}
-     * */
+     */
     @Override
     @Transactional
     public CategoryDto save(final CategoryDto category) {
@@ -67,19 +70,19 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     /**
      * {@inheritDoc}
-     * */
+     */
     @Override
     @Transactional
     public Boolean delete(final String id) {
         final var categoryId = new BigInteger(id);
         final var savedCategoryOp = this.repository.findById(categoryId);
-        if (savedCategoryOp.isEmpty()){
+        if (savedCategoryOp.isEmpty()) {
             return false;
         }
-        try{
+        try {
             this.repository.deleteById(categoryId);
-        }catch (Exception e){
-            //TODO: logger para saber q paso al eliminar ese beta.
+        } catch (Exception e) {
+            CategoryRepositoryImpl.LOG.error("Error occurred deleting a category.", e);
             return false;
         }
         return true;
