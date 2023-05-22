@@ -1,11 +1,12 @@
 package com.dazt.products.domain.services.impl;
 
 import com.dazt.ms.products.dto.ProductDto;
-import com.dazt.products.domain.repository.CategoryRepository;
 import com.dazt.products.domain.repository.ProductRepository;
 import com.dazt.products.domain.services.CategoryService;
 import com.dazt.products.domain.services.ProductService;
+
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    /** repository. */
     private final ProductRepository repository;
-    /** categoryService. */
     private final CategoryService categoryService;
 
     /**
@@ -39,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto getById(final String id) {
         return this.repository.getProductById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Product doesn't exists"));
+                .orElseThrow(() -> new IllegalArgumentException("Product doesn't exists"));
     }
 
     /**
@@ -55,7 +54,8 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public ProductDto save(final ProductDto product) {
-        this.categoryService.getById(product.getCategory().getId().toString());
+        final var category = this.categoryService.getById(product.getCategory().getId().toString());
+        product.setCategory(category);
         return this.repository.save(product);
     }
 
