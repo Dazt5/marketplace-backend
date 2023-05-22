@@ -5,6 +5,7 @@ import com.dazt.products.domain.repository.ProductRepository;
 import com.dazt.products.domain.services.CategoryService;
 import com.dazt.products.domain.services.ProductService;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
@@ -69,6 +70,10 @@ public class ProductServiceImpl implements ProductService {
         existingProduct.setDescription(product.getDescription());
         existingProduct.setStock(product.getStock());
         existingProduct.setPrice(product.getPrice());
+        if (product.getCategory() != null) {
+            final var category = this.categoryService.getById(product.getCategory().getId().toString());
+            existingProduct.setCategory(category);
+        }
         return this.repository.save(existingProduct);
     }
 
