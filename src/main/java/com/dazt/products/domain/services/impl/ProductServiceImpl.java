@@ -5,7 +5,7 @@ import com.dazt.products.domain.repository.ProductRepository;
 import com.dazt.products.domain.services.CategoryService;
 import com.dazt.products.domain.services.ProductService;
 
-import java.math.BigInteger;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
@@ -47,7 +47,8 @@ public class ProductServiceImpl implements ProductService {
      */
     @Transactional(readOnly = true)
     public List<ProductDto> getByCategory(final String categoryCode) {
-        return null;
+        //TODO: implement this
+        return Collections.emptyList();
     }
 
     /**

@@ -4,6 +4,7 @@ import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.domain.repository.CategoryRepository;
 import com.dazt.products.fixtures.CategoryFixtures;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -93,11 +94,12 @@ class TestCategoryServiceImpl {
 
     @Test
     void test_update() {
+        final var rq = CategoryFixtures.getCategoryDto();
         Mockito.when(this.repository.getById(ArgumentMatchers.anyString()))
                 .thenReturn(Optional.of(CategoryFixtures.getCategoryDto()));
         Mockito.when(this.repository.save(ArgumentMatchers.any(CategoryDto.class)))
                 .thenReturn(CategoryFixtures.getCategoryDto());
-        Assertions.assertNotNull(this.instance.update("1", CategoryFixtures.getCategoryDto()));
+        Assertions.assertNotNull(this.instance.update("1", rq));
     }
 
     @Test

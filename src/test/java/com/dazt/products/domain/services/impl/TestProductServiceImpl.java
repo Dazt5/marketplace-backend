@@ -65,7 +65,7 @@ class TestProductServiceImpl {
 
     @Test
     void test_get_by_category_code() {
-        Assertions.assertNull(this.instance.getByCategory("categoryCode"));
+        Assertions.assertNotNull(this.instance.getByCategory("categoryCode"));
     }
 
     @Test

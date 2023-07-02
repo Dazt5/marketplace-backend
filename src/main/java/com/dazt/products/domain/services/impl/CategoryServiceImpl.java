@@ -3,12 +3,8 @@ package com.dazt.products.domain.services.impl;
 import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.domain.repository.CategoryRepository;
 import com.dazt.products.domain.services.CategoryService;
-import com.dazt.products.persistence.mappers.CategoryMapper;
-import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
