@@ -1,6 +1,5 @@
 package com.dazt.products.web.controllers;
 
-import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.persistence.entity.Product;
 import com.dazt.products.domain.services.CategoryService;
 import java.util.List;

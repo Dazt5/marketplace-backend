@@ -1,6 +1,5 @@
 package com.dazt.products.domain.services;
 
-import com.dazt.ms.products.dto.ProductDto;
 import com.dazt.products.persistence.entity.Product;
 import java.util.List;
 

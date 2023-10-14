@@ -1,6 +1,5 @@
 package com.dazt.products.domain.repository;
 
-import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.persistence.entity.Category;
 import com.dazt.products.persistence.entity.Product;
 import java.util.List;

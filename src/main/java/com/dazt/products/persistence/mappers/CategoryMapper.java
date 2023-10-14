@@ -1,6 +1,5 @@
 package com.dazt.products.persistence.mappers;
 
-import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.persistence.entity.Category;
 import java.util.List;
 import org.mapstruct.InheritInverseConfiguration;

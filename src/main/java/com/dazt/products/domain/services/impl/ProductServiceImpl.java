@@ -1,6 +1,5 @@
 package com.dazt.products.domain.services.impl;
 
-import com.dazt.ms.products.dto.ProductDto;
 import com.dazt.products.domain.repository.ProductRepository;
 import com.dazt.products.domain.services.CategoryService;
 import com.dazt.products.domain.services.ProductService;

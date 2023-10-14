@@ -1,6 +1,5 @@
 package com.dazt.products.domain.repository;
 
-import com.dazt.ms.products.dto.ProductDto;
 import java.util.List;
 import java.util.Optional;
 

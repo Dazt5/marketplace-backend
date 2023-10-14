@@ -1,6 +1,5 @@
 package com.dazt.products.fixtures;
 
-import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.persistence.entity.Category;
 import java.math.BigInteger;
 import java.time.LocalDateTime;

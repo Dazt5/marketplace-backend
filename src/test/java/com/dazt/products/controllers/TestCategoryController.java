@@ -1,6 +1,5 @@
 package com.dazt.products.controllers;
 
-import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.fixtures.CategoryFixtures;
 import com.dazt.products.domain.services.impl.CategoryServiceImpl;
 import com.dazt.products.web.controllers.CategoryController;

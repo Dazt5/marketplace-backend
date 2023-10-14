@@ -1,6 +1,5 @@
 package com.dazt.products.domain.services.impl;
 
-import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.domain.repository.CategoryRepository;
 import com.dazt.products.domain.services.CategoryService;
 import java.util.List;

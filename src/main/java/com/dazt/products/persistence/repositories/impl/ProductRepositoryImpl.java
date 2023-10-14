@@ -1,6 +1,5 @@
 package com.dazt.products.persistence.repositories.impl;
 
-import com.dazt.ms.products.dto.ProductDto;
 import com.dazt.products.domain.repository.ProductRepository;
 import com.dazt.products.persistence.mappers.ProductMapper;
 import com.dazt.products.persistence.crud.ProductCrudRepository;

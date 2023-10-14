@@ -1,6 +1,5 @@
 package com.dazt.products.controllers;
 
-import com.dazt.ms.products.dto.ProductDto;
 import com.dazt.products.fixtures.ProductFixtures;
 import com.dazt.products.domain.services.impl.ProductServiceImpl;
 import com.dazt.products.web.controllers.ProductController;

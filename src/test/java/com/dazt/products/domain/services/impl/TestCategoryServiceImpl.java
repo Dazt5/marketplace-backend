@@ -1,10 +1,8 @@
 package com.dazt.products.domain.services.impl;
 
-import com.dazt.ms.products.dto.CategoryDto;
 import com.dazt.products.domain.repository.CategoryRepository;
 import com.dazt.products.fixtures.CategoryFixtures;
 
-import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.verification.VerificationMode;
 
 /**
  * TestCategoryServiceImpl.
